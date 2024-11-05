@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
 {
@@ -11,8 +12,18 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
-        return view('barang.index');
+
+        $harta = DB::table('tbl_harta')
+            ->join('tbl_kategori', 'tbl_harta.kategori_id', '=', 'tbl_kategori.id')
+            ->join('tbl_lokasi', 'tbl_harta.lokasi_id', '=', 'tbl_lokasi.id')
+            ->select('tbl_harta.*', 'tbl_kategori.name as namaKategori', 'tbl_lokasi.name as namaLokasi')
+            ->get();
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('barang.index', compact('harta'));
     }
 
     /**
@@ -20,8 +31,10 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
-        return view('barang.create');
+        $lokasi = DB::table('tbl_lokasi')->get();
+        $kategori = DB::table('tbl_kategori')->get();
+
+        return view('barang.create', compact('lokasi', 'kategori'));
     }
 
     /**

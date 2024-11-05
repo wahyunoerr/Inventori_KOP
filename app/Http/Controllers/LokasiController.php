@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LokasiController extends Controller
 {
@@ -11,8 +12,13 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        //
-        return view('lokasi.index');
+        $lokasi = DB::table('tbl_lokasi')->get();
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('lokasi.index', compact('lokasi'));
     }
 
     /**
@@ -20,7 +26,6 @@ class LokasiController extends Controller
      */
     public function create()
     {
-        //
         return view('lokasi.create');
     }
 
@@ -29,7 +34,15 @@ class LokasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validasiLokasi = $request->validate([
+            'name' => 'required'
+        ]);
+
+        DB::table('tbl_lokasi')->insert([
+            'name' => $validasiLokasi['name'],
+        ]);
+
+        return redirect('lokasi')->with('success', 'Data berhasil disimpan :)');
     }
 
     /**
@@ -43,10 +56,11 @@ class LokasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        //
-        return view('lokasi.edit');
+        $lokasi = DB::table('tbl_lokasi')->where('id', $id)->first();
+
+        return view('lokasi.edit', compact('lokasi'));
     }
 
     /**
@@ -54,7 +68,15 @@ class LokasiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validasiLokasi = $request->validate([
+            'name' => 'required'
+        ]);
+
+        DB::table('tbl_lokasi')->where('id', $id)->update([
+            'name' => $validasiLokasi['name'],
+        ]);
+
+        return redirect('lokasi')->with('success', 'Data berhasil disimpan :)');
     }
 
     /**
@@ -62,6 +84,8 @@ class LokasiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('tbl_lokasi')->where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus :)');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KategoriController extends Controller
 {
@@ -11,7 +12,13 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('Kategori.index');
+        $kategori = DB::table('tbl_kategori')->get();
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('Kategori.index', compact('kategori'));
     }
 
     /**
@@ -19,9 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
         return view('Kategori.create');
-
     }
 
     /**
@@ -29,7 +34,15 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateKategori = $request->validate([
+            'name' => 'required',
+        ]);
+
+        DB::table('tbl_kategori')->insert([
+            'name' => $validateKategori['name']
+        ]);
+
+        return redirect('kategori')->with('success', 'Data berhasil disimpan :)');
     }
 
     /**
@@ -43,10 +56,11 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        //
-        return view('Kategori.edit');
+        $kategori = DB::table('tbl_kategori')->where('id', $id)->first();
+
+        return view('Kategori.edit', compact('kategori'));
     }
 
     /**
@@ -54,7 +68,15 @@ class KategoriController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateKategori = $request->validate([
+            'name' => 'required',
+        ]);
+
+        DB::table('tbl_kategori')->where('id', $id)->update([
+            'name' => $validateKategori['name']
+        ]);
+
+        return redirect('kategori')->with('success', 'Data berhasil diubah :)');
     }
 
     /**
@@ -62,6 +84,8 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('tbl_kategori')->where('id', $id)->delete();
+
+        return redirect()->back()->with('success', 'Data berhasil dihapus :)');
     }
 }

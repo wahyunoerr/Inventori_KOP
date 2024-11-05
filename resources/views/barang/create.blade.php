@@ -16,8 +16,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nama_kategori">Kode Harta</label>
-                                    <input type="text" class="form-control" id="nama_kategori"
-                                        placeholder="Nama kategori">
+                                    <input type="number" class="form-control" id="nama_kategori" placeholder="Kode Harta">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -29,7 +28,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="kategori">Kategori</label>
-                                    <input type="text" class="form-control" id="kategori" placeholder="kategori">
+                                    <select name="kategori_id" id="" class="form-control">
+                                        <option selected disabled>-- Pilih --</option>
+                                        @foreach ($kategori as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -41,19 +45,30 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="lokasi">lokasi</label>
-                                    <input type="text" class="form-control" id="lokasi" placeholder="Lokasi">
+                                    <select name="lokasi_id" id="" class="form-control">
+                                        <option selected disabled>-- Pilih --</option>
+                                        @foreach ($lokasi as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="kondisi">Kondisi</label>
-                                    <input type="text" class="form-control" id="kondisi" placeholder="kondisi">
+                                    <select name="kondisi" class="form-control">
+                                        <option selected disabled>-- Pilih --</option>
+                                        <option value="Sangat Baik">Sangat Baik</option>
+                                        <option value="Baik">Baik</option>
+                                        <option value="Kurang Baik">Kurang Baik</option>
+                                        <option value="Buruk">Buruk</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="keterangan">keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" placeholder="keterangan">
+                                    <textarea name="keterangan" id="" cols="20" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>

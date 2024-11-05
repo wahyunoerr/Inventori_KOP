@@ -3,6 +3,7 @@
 @include('layouts.head')
 
 <body class="hold-transition sidebar-mini">
+    @include('sweetalert::alert')
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -22,7 +23,8 @@
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item">
                     <a class="nav-link" href="#
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
                         <i class="fas fa-power-off"></i>
                     </a>
                     <form id="logout-form" action="# method="POST" class="d-none">
