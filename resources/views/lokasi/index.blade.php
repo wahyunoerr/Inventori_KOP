@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title','Menejemen Kategori')
+@section('title','Menejemen Lokasi')
 @section('content')
 <div class="row">
     <div class="col-12">
@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">DataTable @yield('title')</h3>
-          <a href="{{route('kategori.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Tambah</a>
+          <a href="{{route('lokasi.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Tambah</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -15,20 +15,20 @@
 <thead>
     <tr>
         <th width="10px">No</th>
-        <th>Nama Kategori</th>
+        <th>Nama Lokasi</th>
         <th width="10px">Action</th>
     </tr>
 </thead>
 
 <tbody>
 <tr>
-    
+    <td></td>
 </tr>
 </tbody>
             <tfoot>
                 <tr>
                     <th>No</th>
-                    <th>Nama Ketgori</th>
+                    <th>Nama Lokasi</th>
                     <th>Action</th>
                 </tr>
             </tfoot>

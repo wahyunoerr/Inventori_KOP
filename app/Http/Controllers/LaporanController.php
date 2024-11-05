@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+class LaporanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('Kategori.index');
+        //
+        return view('laporan.index');
     }
 
     /**
@@ -20,8 +21,6 @@ class KategoriController extends Controller
     public function create()
     {
         //
-        return view('Kategori.create');
-
     }
 
     /**
@@ -43,10 +42,9 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
         //
-        return view('Kategori.edit');
     }
 
     /**

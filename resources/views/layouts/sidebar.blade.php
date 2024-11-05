@@ -13,11 +13,40 @@
 
         <li class="nav-item">
             <a href="{{ route('kategori') }}" class="nav-link {{ request()->routeIs('kategori') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-industry"></i>
+                <i class="nav-icon fas fa-bars"></i>
                 <p>
                     Kategori
                 </p>
             </a>
         </li>
+
+
+        <li class="nav-item">
+            <a href="{{ route('barang') }}" class="nav-link {{ request()->routeIs('barang') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-cubes"></i>
+                <p>
+                    Barang
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('lokasi') }}" class="nav-link {{ request()->routeIs('lokasi') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-map-marker-alt mr-1"></i>
+                <p>
+                    Lokasi
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{{ route('laporan') }}" class="nav-link {{ request()->routeIs('laporan') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-folder"></i>
+                <p>
+                    Laporan
+                </p>
+            </a>
+        </li>
+
     </ul>
 </nav>
