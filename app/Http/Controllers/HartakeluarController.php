@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class LaporanController extends Controller
+class HartakeluarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('laporan.index');
+        //
+        return view('hartaKeluar.index');
     }
 
     /**
@@ -20,6 +21,7 @@ class LaporanController extends Controller
     public function create()
     {
         //
+        return view('hartaKeluar.create');
     }
 
     /**
@@ -41,9 +43,10 @@ class LaporanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit()
     {
         //
+        return view('hartaKeluar.edit');
     }
 
     /**

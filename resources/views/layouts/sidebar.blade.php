@@ -38,6 +38,22 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('hartaMasuk') }}" class="nav-link {{ request()->routeIs('hartaMasuk') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-folder"></i>
+                <p>
+                    Harta Masuk
+                </p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('hartaKeluar') }}" class="nav-link {{ request()->routeIs('hartaKeluar') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-folder"></i>
+                <p>
+                    Harta Keluar
+                </p>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a href="{{ route('laporan') }}" class="nav-link {{ request()->routeIs('laporan') ? 'active' : '' }}">

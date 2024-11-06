@@ -4,6 +4,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\HartakeluarController;
+use App\Http\Controllers\HartaMasukController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -61,5 +63,21 @@ Route::controller(LaporanController::class)->group(function () {
     Route::get('/laporan/delete/{id}', 'destroy')->name('laporan.destroy');
 });
 
+Route::controller(HartaMasukController::class)->group(function () {
+    Route::get('/hartaMasuk', 'index')->name('hartaMasuk');
+    Route::get('/hartaMasuk/create', 'create')->name('hartaMasuk.create');
+    Route::post('/hartaMasuk/save', 'store')->name('hartaMasuk.store');
+    Route::post('/hartaMasuk/update/{id}', 'update')->name('hartaMasuk.update');
+    Route::get('/hartaMasuk/edit', 'edit')->name('hartaMasuk.edit');
+    Route::delete('/hartaMasuk/delete/{id}', 'destroy')->name('hartaMasuk.destroy');
+});
 
+Route::controller(HartakeluarController::class)->group(function () {
+    Route::get('/hartaKeluar', 'index')->name('hartaKeluar');
+    Route::get('/hartaKeluar/create', 'create')->name('hartaKeluar.create');
+    Route::post('/hartaKeluar/save', 'store')->name('hartaKeluar.store');
+    Route::post('/hartaKeluar/update/{id}', 'update')->name('hartaKeluar.update');
+    Route::get('/hartaKeluar/edit', 'edit')->name('hartaKeluar.edit');
+    Route::delete('/hartaKeluar/delete/{id}', 'destroy')->name('hartaKeluar.destroy');
+});
 Auth::routes();
