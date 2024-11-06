@@ -56,8 +56,6 @@ class HartaMasukController extends Controller
             ]);
         }
 
-        // dd($request->all(), $hartaId);
-
         DB::table('tbl_hartamsuk')->insert([
             'jumlah' => $validateHarMask['jumlah'],
             'keterangan' => $validateHarMask['keterangan'],
@@ -82,8 +80,9 @@ class HartaMasukController extends Controller
     public function edit(string $id)
     {
         $harMask = DB::table('tbl_hartamsuk')->where('id', $id)->first();
+        $harta = DB::table('tbl_harta')->get();
 
-        return view('HartaMasuk.edit', compact('harMask'));
+        return view('HartaMasuk.edit', compact('harMask', 'harta'));
     }
 
     /**
@@ -100,7 +99,20 @@ class HartaMasukController extends Controller
 
         $harMask = DB::table('tbl_hartamsuk')->where('id', $id)->first();
 
-        $harMask->update([
+        $hartaId = DB::table('tbl_harta')->where('id', $harMask->harta_id)->first();
+
+
+        if ($hartaId) {
+            $stokAwal = $hartaId->stok -= $harMask->jumlah;
+            $stokAkhir = $stokAwal += $validateHarMask['jumlah'];
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $stokAkhir
+            ]);
+        }
+
+        // dd($request->all(), $harMask, $hartaId, $stokAkhir);
+
+        DB::table('tbl_hartamsuk')->where('id', $id)->update([
             'jumlah' => $validateHarMask['jumlah'],
             'keterangan' => $validateHarMask['keterangan'],
             'harta_id' => $validateHarMask['harta_id'],

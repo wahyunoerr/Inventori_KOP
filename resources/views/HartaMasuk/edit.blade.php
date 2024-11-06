@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Edit Harta Masuk')
+@section('title', 'Tambah Harta Masuk')
 @section('content')
     <div class="row">
         <!-- left column -->
@@ -10,31 +10,41 @@
                     <h3 class="card-title">Form @yield('title')</h3>
                 </div>
                 <!-- /.card-header -->
-                <form>
+                <form action="{{ route('hartaMasuk.update', $harMask->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    {{-- <input type="hidden" name="jumlah_awal" value="{{ $harMask->jumlah }}"> --}}
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="nama_harta">Nama Harta</label>
-                                    <input type="text" class="form-control" id="nama_harta" placeholder="Nama harta">
+                                    <label for="name">Nama Harta</label>
+                                    <select name="harta_id" id="" class="form-control">
+                                        @foreach ($harta as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $harMask->harta_id == $item->id ? 'selected' : '' }}>{{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="tanggal">Tarnggal Masuk</label>
-                                    <input type="date" class="form-control" id="tanggal" placeholder="tanggal">
+                                    <label for="jumlah">Jumlah</label>
+                                    <input type="number" class="form-control" id="jumlah" name="jumlah"
+                                        value="{{ $harMask->jumlah }}" placeholder="jumlah">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="jumlah">jumlah</label>
-                                    <input type="number" class="form-control" id="jumlah" placeholder="jumlah">
+                                    <label for="tanggal">Tanggal Masuk</label>
+                                    <input type="date" value="{{ $harMask->tanggal_masuk }}" name="tanggal_masuk"
+                                        class="form-control" id="tanggal" placeholder="Masukkan Tanggal">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="keterangan">keterangan</label>
-                                    <textarea name="keterangan" id="" cols="20" rows="5" class="form-control"></textarea>
+                                    <textarea name="keterangan" name="keterangan" id="" cols="20" rows="5" class="form-control">{{ $harMask->keterangan }}</textarea>
                                 </div>
                             </div>
                         </div>
