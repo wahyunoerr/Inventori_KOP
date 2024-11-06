@@ -42,7 +42,31 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateHarta = $request->validate([
+            'kode' => 'required',
+            'name' => 'required',
+            'kategori_id' => 'required|exists:tbl_kategori,id',
+            'nilai' => 'required',
+            'lokasi_id' => 'required|exists:tbl_lokasi,id',
+            'kondisi' => 'required|in:Sangat Baik,Baik,Kurang Baik,Buruk',
+            'keterangan' => 'required',
+            'stok' => 'required'
+        ]);
+
+        $newKode = time() . "KOP" . $validateHarta['kode'];
+
+        DB::table('tbl_harta')->insert([
+            'kode' => $newKode,
+            'name' => $validateHarta['name'],
+            'kategori_id' => $validateHarta['kategori_id'],
+            'nilai' => $validateHarta['nilai'],
+            'lokasi_id' => $validateHarta['lokasi_id'],
+            'kondisi' => $validateHarta['kondisi'],
+            'keterangan' => $validateHarta['keterangan'],
+            'stok' => $validateHarta['stok'],
+        ]);
+
+        return redirect('barang')->with('success', 'Data berhasil disimpan :)');
     }
 
     /**
@@ -56,10 +80,12 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        //
-        return view('barang.edit');
+        $harta = DB::table('tbl_harta')->where('id', $id)->first();
+        $kategori = DB::table('tbl_kategori')->get();
+        $lokasi = DB::table('tbl_lokasi')->get();
+        return view('barang.edit', compact('harta', 'kategori', 'lokasi'));
     }
 
     /**
@@ -67,7 +93,30 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateHarta = $request->validate([
+            'name' => 'required',
+            'kategori_id' => 'required|exists:tbl_kategori,id',
+            'nilai' => 'required',
+            'lokasi_id' => 'required|exists:tbl_lokasi,id',
+            'kondisi' => 'required|in:Sangat Baik,Baik,Kurang Baik,Buruk',
+            'keterangan' => 'required',
+            'stok' => 'required'
+        ]);
+
+        $kode = DB::table('tbl_harta')->where('id', $id)->first();
+
+        DB::table('tbl_harta')->where('id', $id)->update([
+            'kode' => $kode->kode,
+            'name' => $validateHarta['name'],
+            'kategori_id' => $validateHarta['kategori_id'],
+            'nilai' => $validateHarta['nilai'],
+            'lokasi_id' => $validateHarta['lokasi_id'],
+            'kondisi' => $validateHarta['kondisi'],
+            'keterangan' => $validateHarta['keterangan'],
+            'stok' => $validateHarta['stok'],
+        ]);
+
+        return redirect('barang')->with('success', 'Data berhasil diubah :)');
     }
 
     /**
@@ -75,6 +124,8 @@ class BarangController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $harta = DB::table('tbl_harta')->where('id', $id)->delete();
+
+        return redirect('barang')->with('success', 'Data berhasil dihapus :)');
     }
 }

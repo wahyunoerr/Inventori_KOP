@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode', 100);
             $table->string('name', 100);
+            $table->string('stok', 100);
             $table->unsignedBigInteger('kategori_id');
             $table->unsignedBigInteger('lokasi_id');
             $table->string('nilai', 100);
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('kategori_id')->references('id')->on('tbl_kategori')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('lokasi_id')->references('id')->on('tbl_kategori')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('lokasi_id')->references('id')->on('tbl_lokasi')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

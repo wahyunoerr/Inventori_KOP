@@ -18,6 +18,7 @@
                                 <th width="10px">No</th>
                                 <th>Kode Harta</th>
                                 <th>Nama Harta</th>
+                                <th>Stok Harta</th>
                                 <th>Kategori</th>
                                 <th>Nilai</th>
                                 <th>Lokasi</th>
@@ -33,8 +34,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $h->kode }}</td>
                                     <td>{{ $h->name }}</td>
+                                    <td>{{ $h->stok }}</td>
                                     <td>{{ $h->namaKategori }}</td>
-                                    <td>{{ $h->nilai }}</td>
+                                    <td>{{ number_format($h->nilai, 0, ',', '.') }}</td>
                                     <td>{{ $h->namaLokasi }}</td>
                                     <td>{{ $h->kondisi }}</td>
                                     <td>{{ $h->keterangan }}</td>
@@ -55,6 +57,7 @@
                                 <th width="10px">No</th>
                                 <th>Kode Harta</th>
                                 <th>Nama Harta</th>
+                                <th>Stok Harta</th>
                                 <th>Kategori</th>
                                 <th>Nilai</th>
                                 <th>Lokasi</th>

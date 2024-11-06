@@ -40,8 +40,8 @@ Route::controller(BarangController::class)->group(function () {
     Route::get('/barang/create', 'create')->name('barang.create');
     Route::post('/barang/save', 'store')->name('barang.store');
     Route::post('/barang/update/{id}', 'update')->name('barang.update');
-    Route::get('/barang/edit', 'edit')->name('barang.edit');
-    Route::get('/barang/delete/{id}', 'destroy')->name('barang.destroy');
+    Route::get('/barang/edit/{id}', 'edit')->name('barang.edit');
+    Route::delete('/barang/delete/{id}', 'destroy')->name('barang.destroy');
 });
 
 
@@ -68,7 +68,7 @@ Route::controller(HartaMasukController::class)->group(function () {
     Route::get('/hartaMasuk/create', 'create')->name('hartaMasuk.create');
     Route::post('/hartaMasuk/save', 'store')->name('hartaMasuk.store');
     Route::post('/hartaMasuk/update/{id}', 'update')->name('hartaMasuk.update');
-    Route::get('/hartaMasuk/edit', 'edit')->name('hartaMasuk.edit');
+    Route::get('/hartaMasuk/edit/{id}', 'edit')->name('hartaMasuk.edit');
     Route::delete('/hartaMasuk/delete/{id}', 'destroy')->name('hartaMasuk.destroy');
 });
 

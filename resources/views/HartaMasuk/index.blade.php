@@ -6,7 +6,8 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">DataTable @yield('title')</h3>
-                    <a href="{{route('hartaMasuk.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus"></i></a>
+                    <a href="{{ route('hartaMasuk.create') }}" class="btn btn-primary float-right"><i
+                            class="fas fa-plus"></i></a>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -23,23 +24,23 @@
                         </thead>
 
                         <tbody>
-                           @foreach ($hartaK as $k )
-                           <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$k->name}}</td>
-                            <td>{{$k->tanggal}}</td>
-                            <td>{{$k->jumlah}}</td>
-                            <td>{{$k->keterangan}}</td>
-                            <td>
-                                <a href="{{ route('hartaMasuk.edit', $h->id) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
-                                <a href="{{ route('hartaMasuk .destroy', $h->id) }}" data-confirm-delete="true"
-                                    class="btn btn-sm btn-danger float-right">
-                                    <i class="fas fa-trash"></i>
-                            </td>
-                        </tr>
-                           @endforeach
+                            @foreach ($hartaK as $k)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $k->namaHarta }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($k->tanggal_masuk)) }}</td>
+                                    <td>{{ $k->jumlah }}</td>
+                                    <td>{{ $k->keterangan }}</td>
+                                    <td>
+                                        <a href="{{ route('hartaMasuk.edit', $k->id) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a href="{{ route('hartaMasuk.destroy', $k->id) }}" data-confirm-delete="true"
+                                            class="btn btn-sm btn-danger float-right">
+                                            <i class="fas fa-trash"></i>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>

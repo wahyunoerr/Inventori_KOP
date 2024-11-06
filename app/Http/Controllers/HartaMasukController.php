@@ -12,10 +12,10 @@ class HartaMasukController extends Controller
      */
     public function index()
     {
-        $hartaK=DB::table('tbl_hartamsuk')
-        ->join('tbl_harta', 'tbl_hartamsuk.harta_id', '=', 'tbl_harta.id')
-        ->select('tbl_hartamsuk.*', 'tbl_harta.name as namaHarta')
-        ->get();
+        $hartaK = DB::table('tbl_hartamsuk')
+            ->join('tbl_harta', 'tbl_hartamsuk.harta_id', '=', 'tbl_harta.id')
+            ->select('tbl_hartamsuk.*', 'tbl_harta.name as namaHarta')
+            ->get();
 
 
         $title = 'Hapus Data!';
@@ -30,9 +30,9 @@ class HartaMasukController extends Controller
      */
     public function create()
     {
-        $lokasi = DB::table('tbl_hartamsuk')->get();
+        $harta = DB::table('tbl_harta')->get();
 
-        return view('HartaMasuk.create', compact('hartamsuk'));
+        return view('HartaMasuk.create', compact('harta'));
     }
 
     /**
@@ -40,7 +40,32 @@ class HartaMasukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateHarMask = $request->validate([
+            'jumlah' => 'required',
+            'keterangan' => 'required',
+            'harta_id' => 'required|exists:tbl_harta,id',
+            'tanggal_masuk' => 'required|date',
+        ]);
+
+        $hartaId = DB::table('tbl_harta')->where('id', $validateHarMask['harta_id'])->first();
+
+        if ($hartaId) {
+            $finalStok = $hartaId->stok += $validateHarMask['jumlah'];
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $finalStok
+            ]);
+        }
+
+        // dd($request->all(), $hartaId);
+
+        DB::table('tbl_hartamsuk')->insert([
+            'jumlah' => $validateHarMask['jumlah'],
+            'keterangan' => $validateHarMask['keterangan'],
+            'harta_id' => $validateHarMask['harta_id'],
+            'tanggal_masuk' => $validateHarMask['tanggal_masuk'],
+        ]);
+
+        return redirect('hartaMasuk')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -54,10 +79,11 @@ class HartaMasukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        //
-        return view('HartaMasuk.edit');
+        $harMask = DB::table('tbl_hartamsuk')->where('id', $id)->first();
+
+        return view('HartaMasuk.edit', compact('harMask'));
     }
 
     /**
@@ -65,7 +91,23 @@ class HartaMasukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateHarMask = $request->validate([
+            'jumlah' => 'required',
+            'keterangan' => 'required',
+            'harta_id' => 'required|exists:tbl_harta,id',
+            'tanggal_masuk' => 'required|date',
+        ]);
+
+        $harMask = DB::table('tbl_hartamsuk')->where('id', $id)->first();
+
+        $harMask->update([
+            'jumlah' => $validateHarMask['jumlah'],
+            'keterangan' => $validateHarMask['keterangan'],
+            'harta_id' => $validateHarMask['harta_id'],
+            'tanggal_masuk' => $validateHarMask['tanggal_masuk'],
+        ]);
+
+        return redirect('hartaMasuk')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -73,6 +115,20 @@ class HartaMasukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $harMask = DB::table('tbl_hartamsuk')->where('id', $id)->first();
+
+
+        $hartaId = DB::table('tbl_harta')->where('id', $harMask->harta_id)->first();
+
+        if ($hartaId) {
+            $finalStok = $hartaId->stok -= $harMask->jumlah;
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $finalStok
+            ]);
+        }
+
+        DB::table('tbl_hartamsuk')->where('id', $id)->delete();
+
+        return redirect('hartaMasuk')->with('success', 'Data berhasil dihapus :-)');
     }
 }

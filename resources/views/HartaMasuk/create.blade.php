@@ -10,31 +10,39 @@
                     <h3 class="card-title">Form @yield('title')</h3>
                 </div>
                 <!-- /.card-header -->
-                <form>
+                <form action="{{ route('hartaMasuk.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="name">Nama Harta</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Nama harta">
+                                    <select name="harta_id" id="" class="form-control">
+                                        <option value="" selected disabled>-- Pilih --</option>
+                                        @foreach ($harta as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah</label>
-                                    <input type="number" class="form-control" id="jumlah" placeholder="jumlah">
+                                    <input type="number" class="form-control" id="jumlah" name="jumlah"
+                                        placeholder="jumlah">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal Masuk</label>
-                                    <input type="date" class="form-control" id="tanggal" placeholder="Masukkan Tanggal">
+                                    <input type="date" name="tanggal_masuk" class="form-control" id="tanggal"
+                                        placeholder="Masukkan Tanggal">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="keterangan">keterangan</label>
-                                    <textarea name="keterangan" id="" cols="20" rows="5" class="form-control"></textarea>
+                                    <textarea name="keterangan" name="keterangan" id="" cols="20" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>

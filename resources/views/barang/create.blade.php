@@ -10,19 +10,22 @@
                     <h3 class="card-title">Form @yield('title')</h3>
                 </div>
                 <!-- /.card-header -->
-                <form>
+                <form action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nama_kategori">Kode Harta</label>
-                                    <input type="number" class="form-control" id="nama_kategori" placeholder="Kode Harta">
+                                    <input type="number" class="form-control" id="nama_kategori" name="kode"
+                                        placeholder="Kode Harta">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nama_harta">Nama Harta</label>
-                                    <input type="text" class="form-control" id="nama_harta" placeholder="Nama harta">
+                                    <input type="text" class="form-control" id="nama_harta" name="name"
+                                        placeholder="Nama harta">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -39,10 +42,11 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nilai">Nilai</label>
-                                    <input type="number" class="form-control" id="nilai" placeholder="Nilai">
+                                    <input type="number" class="form-control" id="nilai" name="nilai"
+                                        placeholder="Nilai">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="lokasi">lokasi</label>
                                     <select name="lokasi_id" id="" class="form-control">
@@ -53,7 +57,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="kondisi">Kondisi</label>
                                     <select name="kondisi" class="form-control">
@@ -65,10 +69,18 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <label for="stok">Stok</label>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="stok"
+                                        placeholder="Masukkan Stok Harta">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="keterangan">keterangan</label>
-                                    <textarea name="keterangan" id="" cols="20" rows="5" class="form-control"></textarea>
+                                    <textarea name="keterangan" id="" cols="20" rows="5" class="form-control"
+                                        placeholder="Masukkan Keterangan"></textarea>
                                 </div>
                             </div>
                         </div>

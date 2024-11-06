@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('tbl_hartamsuk', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('jumlah', 100);
             $table->unsignedBigInteger('harta_id');
-            $table->date('harta_masuk');
+            $table->string('jumlah', 100);
+            $table->string('keterangan', 100);
+            $table->date('tanggal_masuk');
             $table->timestamps();
 
-            $table->foreign('harta_id')->references('id')->on('tbl_harta')->onUpdate('cascade');
+            $table->foreign('harta_id')->references('id')->on('tbl_harta')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
