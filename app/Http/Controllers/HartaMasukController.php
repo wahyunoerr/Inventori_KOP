@@ -110,8 +110,6 @@ class HartaMasukController extends Controller
             ]);
         }
 
-        // dd($request->all(), $harMask, $hartaId, $stokAkhir);
-
         DB::table('tbl_hartamsuk')->where('id', $id)->update([
             'jumlah' => $validateHarMask['jumlah'],
             'keterangan' => $validateHarMask['keterangan'],
