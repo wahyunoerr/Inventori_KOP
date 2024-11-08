@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('jumlah', 100);
             $table->string('keterangan', 100);
             $table->unsignedBigInteger('harta_id');
-            $table->date('harta_keluar');
+            $table->date('tanggal_keluar');
             $table->timestamps();
 
             $table->foreign('harta_id')->references('id')->on('tbl_harta')->onUpdate('cascade')->onDelete('cascade');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HartakeluarController extends Controller
 {
@@ -11,8 +12,17 @@ class HartakeluarController extends Controller
      */
     public function index()
     {
-        //
-        return view('hartaKeluar.index');
+        $hartaK = DB::table('tbl_hartakeluar')
+            ->join('tbl_harta', 'tbl_hartakeluar.harta_id', '=', 'tbl_harta.id')
+            ->select('tbl_hartakeluar.*', 'tbl_harta.name as namaHarta')
+            ->get();
+
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('hartaKeluar.index', compact('hartaK'));
     }
 
     /**
@@ -20,8 +30,8 @@ class HartakeluarController extends Controller
      */
     public function create()
     {
-        //
-        return view('hartaKeluar.create');
+        $harta = DB::table('tbl_harta')->get();
+        return view('hartaKeluar.create', compact('harta'));
     }
 
     /**
@@ -29,7 +39,30 @@ class HartakeluarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateHarMask = $request->validate([
+            'jumlah' => 'required',
+            'keterangan' => 'required',
+            'harta_id' => 'required|exists:tbl_harta,id',
+            'tanggal_keluar' => 'required|date',
+        ]);
+
+        $hartaId = DB::table('tbl_harta')->where('id', $validateHarMask['harta_id'])->first();
+
+        if ($hartaId) {
+            $finalStok = $hartaId->stok -= $validateHarMask['jumlah'];
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $finalStok
+            ]);
+        }
+
+        DB::table('tbl_hartakeluar')->insert([
+            'jumlah' => $validateHarMask['jumlah'],
+            'keterangan' => $validateHarMask['keterangan'],
+            'harta_id' => $validateHarMask['harta_id'],
+            'tanggal_keluar' => $validateHarMask['tanggal_keluar'],
+        ]);
+
+        return redirect('hartaKeluar')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -43,10 +76,12 @@ class HartakeluarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit()
+    public function edit(string $id)
     {
-        //
-        return view('hartaKeluar.edit');
+        $harMask = DB::table('tbl_hartakeluar')->where('id', $id)->first();
+        $harta = DB::table('tbl_harta')->get();
+
+        return view('hartaKeluar.edit', compact('harMask', 'harta'));
     }
 
     /**
@@ -54,7 +89,34 @@ class HartakeluarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validateHarMask = $request->validate([
+            'jumlah' => 'required',
+            'keterangan' => 'required',
+            'harta_id' => 'required|exists:tbl_harta,id',
+            'tanggal_keluar' => 'required|date',
+        ]);
+
+        $harMask = DB::table('tbl_hartakeluar')->where('id', $id)->first();
+
+        $hartaId = DB::table('tbl_harta')->where('id', $harMask->harta_id)->first();
+
+
+        if ($hartaId) {
+            $stokAwal = $hartaId->stok += $harMask->jumlah;
+            $stokAkhir = $stokAwal -= $validateHarMask['jumlah'];
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $stokAkhir
+            ]);
+        }
+
+        DB::table('tbl_hartakeluar')->where('id', $id)->update([
+            'jumlah' => $validateHarMask['jumlah'],
+            'keterangan' => $validateHarMask['keterangan'],
+            'harta_id' => $validateHarMask['harta_id'],
+            'tanggal_keluar' => $validateHarMask['tanggal_keluar'],
+        ]);
+
+        return redirect('hartaMasuk')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -62,6 +124,20 @@ class HartakeluarController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $harMask = DB::table('tbl_hartakeluar')->where('id', $id)->first();
+
+
+        $hartaId = DB::table('tbl_harta')->where('id', $harMask->harta_id)->first();
+
+        if ($hartaId) {
+            $finalStok = $hartaId->stok += $harMask->jumlah;
+            DB::table('tbl_harta')->where('id', $hartaId->id)->update([
+                'stok' => $finalStok
+            ]);
+        }
+
+        DB::table('tbl_hartakeluar')->where('id', $id)->delete();
+
+        return redirect('hartaKeluar')->with('success', 'Data berhasil dihapus :-)');
     }
 }

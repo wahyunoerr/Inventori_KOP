@@ -77,7 +77,7 @@ Route::controller(HartakeluarController::class)->group(function () {
     Route::get('/hartaKeluar/create', 'create')->name('hartaKeluar.create');
     Route::post('/hartaKeluar/save', 'store')->name('hartaKeluar.store');
     Route::post('/hartaKeluar/update/{id}', 'update')->name('hartaKeluar.update');
-    Route::get('/hartaKeluar/edit', 'edit')->name('hartaKeluar.edit');
+    Route::get('/hartaKeluar/edit/{id}', 'edit')->name('hartaKeluar.edit');
     Route::delete('/hartaKeluar/delete/{id}', 'destroy')->name('hartaKeluar.destroy');
 });
 Auth::routes();

@@ -23,9 +23,23 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            @foreach ($hartaK as $k)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $k->namaHarta }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($k->tanggal_keluar)) }}</td>
+                                    <td>{{ $k->jumlah }}</td>
+                                    <td>{{ $k->keterangan }}</td>
+                                    <td>
+                                        <a href="{{ route('hartaKeluar.edit', $k->id) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a href="{{ route('hartaKeluar.destroy', $k->id) }}" data-confirm-delete="true"
+                                            class="btn btn-sm btn-danger float-right">
+                                            <i class="fas fa-trash"></i>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
