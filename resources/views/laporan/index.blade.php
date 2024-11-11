@@ -28,9 +28,25 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td></td>
-                            </tr>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($laporan as $k)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $k->namaHarta }}</td>
+                                    <td>{{ $k->namaKategori }}</td>
+                                    <td>{{ $k->jumlahMasuk ?? 0 }}</td>
+                                    <td>{{ $k->jumlahKeluar ?? 0 }}</td>
+                                    <td>{{ $k->sisaJumlah ?? 0 }}</td>
+                                    <td>{{ number_format($k->TotalNilaiMasuk, 0, ',', '.' ?? 0) }}</td>
+                                    <td>{{ number_format($k->TotalNilaiKeluar, 0, ',', '.' ?? 0) }}</td>
+                                    <td>{{ number_format($k->SisaTotalNilai, 0, ',', '.' ?? 0) }}</td>
+                                    <td>
+                                        <a href="" class="btn btn-sm btn-success"><i class="fas fa-print"></i>Cetak</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                         <tfoot>
                             <tr>

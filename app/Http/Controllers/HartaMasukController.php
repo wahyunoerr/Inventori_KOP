@@ -56,6 +56,33 @@ class HartaMasukController extends Controller
             ]);
         }
 
+        $laporan = DB::table('tbl_laporan')->where('harta_id', $hartaId->id)->first();
+
+        if ($laporan) {
+            $UjumlahMasuk = $laporan->jumlahMasuk + $validateHarMask['jumlah'];
+            $UtotalNilaiMasuk = $laporan->TotalNilaiMasuk + ($validateHarMask['jumlah'] * $hartaId->nilai);
+
+            DB::table('tbl_laporan')->where('id', $laporan->id)->update([
+                'harta_id' => $validateHarMask['harta_id'],
+                'kategori_id' => $hartaId->kategori_id,
+                'jumlahMasuk' => $UjumlahMasuk,
+                'sisaJumlah' => $hartaId->stok,
+                'TotalNilaiMasuk' => $UtotalNilaiMasuk,
+                'SisaTotalNilai' => $hartaId->stok * $hartaId->nilai,
+            ]);
+        } else {
+            DB::table('tbl_laporan')->insert([
+                'harta_id' => $validateHarMask['harta_id'],
+                'kategori_id' => $hartaId->kategori_id,
+                'jumlahMasuk' => $validateHarMask['jumlah'],
+                'sisaJumlah' => $hartaId->stok,
+                'TotalNilaiMasuk' => $validateHarMask['jumlah'] * $hartaId->nilai,
+                'TotalNilaiKeluar' => 0,
+                'SisaTotalNilai' => $hartaId->stok * $hartaId->nilai,
+            ]);
+        }
+
+
         DB::table('tbl_hartamsuk')->insert([
             'jumlah' => $validateHarMask['jumlah'],
             'keterangan' => $validateHarMask['keterangan'],

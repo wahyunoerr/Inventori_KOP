@@ -6,6 +6,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HartakeluarController;
 use App\Http\Controllers\HartaMasukController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::controller(KategoriController::class)->group(function () {
@@ -80,4 +82,12 @@ Route::controller(HartakeluarController::class)->group(function () {
     Route::get('/hartaKeluar/edit/{id}', 'edit')->name('hartaKeluar.edit');
     Route::delete('/hartaKeluar/delete/{id}', 'destroy')->name('hartaKeluar.destroy');
 });
-Auth::routes();
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user', 'index')->name('user');
+    Route::get('/hartaKeluar/create', 'create')->name('hartaKeluar.create');
+    Route::post('/hartaKeluar/save', 'store')->name('hartaKeluar.store');
+    Route::post('/hartaKeluar/update/{id}', 'update')->name('hartaKeluar.update');
+    Route::get('/hartaKeluar/edit/{id}', 'edit')->name('hartaKeluar.edit');
+    Route::delete('/hartaKeluar/delete/{id}', 'destroy')->name('hartaKeluar.destroy');
+});

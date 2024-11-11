@@ -25,7 +25,7 @@
             <a href="{{ route('barang') }}" class="nav-link {{ request()->routeIs('barang') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cubes"></i>
                 <p>
-                    Barang
+                    Daftar Harta
                 </p>
             </a>
         </li>
@@ -64,5 +64,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a href="{{ route('user') }}" class="nav-link {{ request()->routeIs('user') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    User
+                </p>
+            </a>
+        </li>
     </ul>
 </nav>

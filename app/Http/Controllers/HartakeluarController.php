@@ -62,6 +62,33 @@ class HartakeluarController extends Controller
             'tanggal_keluar' => $validateHarMask['tanggal_keluar'],
         ]);
 
+        $laporan = DB::table('tbl_laporan')->where('harta_id', $hartaId->id)->first();
+
+        if ($laporan) {
+            $UjumlahKeluar =  $validateHarMask['jumlah'] - $laporan->jumlahKeluar;
+            $UtotalNilaiKeluar = ($validateHarMask['jumlah'] * $hartaId->nilai) - $laporan->TotalNilaiKeluar;
+
+            DB::table('tbl_laporan')->where('id', $laporan->id)->update([
+                'harta_id' => $validateHarMask['harta_id'],
+                'kategori_id' => $hartaId->kategori_id,
+                'jumlahKeluar' => $UjumlahKeluar,
+                'sisaJumlah' => $hartaId->stok,
+                'TotalNilaiKeluar' => $UtotalNilaiKeluar,
+                'SisaTotalNilai' => $hartaId->stok * $hartaId->nilai,
+            ]);
+        } else {
+            DB::table('tbl_laporan')->insert([
+                'harta_id' => $validateHarMask['harta_id'],
+                'kategori_id' => $hartaId->kategori_id,
+                'jumlahKeluar' => $validateHarMask['jumlah'],
+                'sisaJumlah' => $hartaId->stok,
+                'TotalNilaiMasuk' => 0,
+                'TotalNilaiKeluar' => $validateHarMask['jumlah'] * $hartaId->nilai,
+                'SisaTotalNilai' => $hartaId->stok * $hartaId->nilai,
+            ]);
+        }
+
+
         return redirect('hartaKeluar')->with('success', 'Data berhasil disimpan');
     }
 

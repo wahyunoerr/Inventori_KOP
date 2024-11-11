@@ -5,19 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class LaporanController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $laporan = DB::table('tbl_laporan')
-            ->join('tbl_harta', 'tbl_laporan.harta_id', '=', 'tbl_harta.id')
-            ->join('tbl_kategori', 'tbl_laporan.kategori_id', '=', 'tbl_kategori.id')
-            ->select('tbl_laporan.*', 'tbl_harta.name as namaHarta', 'tbl_kategori.name as namaKategori')
-            ->get();
-        return view('laporan.index', compact('laporan'));
+
+        $users = DB::table('users')->get();
+
+        $title = 'Hapus Data!';
+        $text = "Apakah anda yakin?";
+        confirmDelete($title, $text);
+
+        return view('user.index',compact('users'));
     }
 
     /**
