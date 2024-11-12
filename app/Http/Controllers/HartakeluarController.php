@@ -143,7 +143,7 @@ class HartakeluarController extends Controller
             'tanggal_keluar' => $validateHarMask['tanggal_keluar'],
         ]);
 
-        return redirect('hartaMasuk')->with('success', 'Data berhasil diubah');
+        return redirect('hartaKeluar')->with('success', 'Data berhasil diubah');
     }
 
     /**

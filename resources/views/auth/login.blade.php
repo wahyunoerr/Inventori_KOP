@@ -3,14 +3,15 @@
 @section('content')
 <style>
     body {
-        background-image: url('{{ asset('assets/img/Koperasi.JPG') }}');
-        background-size: contain; /* Menggunakan 'contain' untuk memperkecil gambar */
-        background-position: center; /* Memusatkan gambar */
-        background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+        background-image: url('{{ asset('assets/img/lokasi.JPG') }}');
+        background-size: cover; /* Use 'cover' to make the background fill the entire page */
+        background-position: center; /* Center the background image */
+        background-repeat: no-repeat; /* Prevent the image from repeating */
         height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 0; /* Remove any default margin */
     }
 
     .login-box {

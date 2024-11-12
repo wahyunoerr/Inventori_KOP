@@ -23,6 +23,24 @@ class LaporanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+     public function generatePDF(string $id)
+    {
+
+
+        $laporan = DB::table('tbl_laporan')
+            ->join('tbl_harta', 'tbl_laporan.harta_id', '=', 'tbl_harta.id')
+            ->join('tbl_kategori', 'tbl_laporan.kategori_id', '=', 'tbl_kategori.id')
+            ->select('tbl_laporan.*', 'tbl_harta.name as namaHarta', 'tbl_kategori.name as namaKategori')
+            ->where('tbl_laporan.id', $id) // Filter by the specific id
+            ->get();
+
+        if (!$laporan) {
+            return redirect()->back()->with('error', 'Data inventori tidak ditemukan.');
+        }
+
+        return view('laporan.invoice', compact('laporan'));
+    }
     public function create()
     {
         //

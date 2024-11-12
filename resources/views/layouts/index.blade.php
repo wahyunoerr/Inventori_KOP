@@ -22,12 +22,11 @@
 
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                    <a class="nav-link" href="{{ route('login') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-power-off"></i>
                     </a>
-                    <form id="logout-form" action="#" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </li>
@@ -55,7 +54,7 @@
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">admin</a>
+                        <a href="#" class="d-block">{{ Auth::user()->roles->first()->name }}</a>
                     </div>
                 </div>
 
