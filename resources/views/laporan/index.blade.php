@@ -1,5 +1,5 @@
 @extends('layouts.index')
-@section('title', 'Menejemen Laporan')
+@section('title', 'Manajemen Laporan')
 @section('content')
     <div class="row">
         <div class="col-12">

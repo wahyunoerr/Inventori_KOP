@@ -34,9 +34,9 @@ Auth::routes([
     'register' => false,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['role:admin|ketua']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['role:sekretaris|ketua Koperasi']);
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:sekretaris'])->group(function () {
     Route::controller(KategoriController::class)->group(function () {
         Route::get('/kategori', 'index')->name('kategori');
         Route::get('/kategori/create', 'create')->name('kategori.create');
@@ -83,7 +83,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'role:admin|ketua'])->group(function () {
+Route::middleware(['auth', 'role:sekretaris|ketua Koperasi'])->group(function () {
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/laporan', 'index')->name('laporan');
         Route::get('/laporan/create', 'create')->name('laporan.create');

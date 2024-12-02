@@ -24,7 +24,7 @@ class LaporanController extends Controller
      * Show the form for creating a new resource.
      */
 
-     public function generatePDF(string $id)
+    public function generatePDF(string $id)
     {
 
 
@@ -36,7 +36,7 @@ class LaporanController extends Controller
             ->get();
 
         if (!$laporan) {
-            return redirect()->back()->with('error', 'Data inventori tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data inventaris tidak ditemukan.');
         }
 
         return view('laporan.invoice', compact('laporan'));

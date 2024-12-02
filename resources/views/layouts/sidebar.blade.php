@@ -11,7 +11,7 @@
             </a>
         </li>
 
-        @role('admin')
+        @role('sekretaris')
             <li class="nav-item">
                 <a href="{{ route('kategori') }}" class="nav-link {{ request()->routeIs('kategori') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-bars"></i>
@@ -58,7 +58,7 @@
             </li>
         @endrole
 
-        @role('ketua')
+        @role('ketua Koperasi')
             <li class="nav-item">
                 <a href="{{ route('laporan') }}" class="nav-link {{ request()->routeIs('laporan') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-folder"></i>

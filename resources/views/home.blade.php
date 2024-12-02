@@ -5,7 +5,7 @@
     }
 </style>
 @extends('layouts.index')
-@section('title', 'dashboard')
+@section('title', 'Dashboard')
 @section('content')
     <!-- Small boxes (Stat box) -->
     <div class="row">
@@ -45,6 +45,7 @@
                 <div class="inner">
                     <h3>{{ count($hartaMasuk) }}</h3>
 
+
                     <p>Total Harta Masuk</p>
                 </div>
                 <div class="icon">
@@ -66,7 +67,8 @@
                 <div class="icon">
                     <i class="fa fa-cubes"></i>
                 </div>
-                <a href="{{ route('hartaKeluar') }}" class="small-box-footer">Lihat <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{ route('hartaKeluar') }}" class="small-box-footer">Lihat <i
+                        class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2 class="page-header">
-                        <i class="fas fa-globe"></i> INVENTORY
+                        <i class="fas fa-globe"></i> INVENTARIS
                         <small class="float-right">Date: {{ date('d F Y') }}</small>
                     </h2>
                 </div>
@@ -53,12 +53,12 @@
             </div>
         </section>
 
-    <!-- Page specific script -->
-    <script>
-        window.addEventListener("load", function() {
-            window.print();
-        });
-    </script>
+        <!-- Page specific script -->
+        <script>
+            window.addEventListener("load", function() {
+                window.print();
+            });
+        </script>
 </body>
 
 </html>
