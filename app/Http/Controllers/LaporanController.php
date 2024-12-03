@@ -58,7 +58,7 @@ class LaporanController extends Controller
             ->get();
 
         if (!$laporan) {
-            return redirect()->back()->with('error', 'Data inventori tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data inventaris tidak ditemukan.');
         }
 
         return view('laporan.invoice', compact('laporan'));

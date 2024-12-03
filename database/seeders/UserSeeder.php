@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            'sekretaris' => [
-                'name' => 'sekretaris',
-                'email' => 'sekretaris@gmail.com',
-                'password' => Hash::make('sekretaris123')
+            'admin' => [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin123')
             ],
             'ketua' => [
-                'name' => 'ketua koperasi',
+                'name' => 'ketua test',
                 'email' => 'ketua@gmail.com',
                 'password' => Hash::make('ketua123')
             ],
@@ -31,11 +31,11 @@ class UserSeeder extends Seeder
         foreach ($user as $key => $userRole) {
             $createUser = User::create($userRole);
 
-            if ($key === 'sekretaris') {
-                $createUser->assignRole(Role::where('name', 'sekretaris')->first());
+            if ($key === 'admin') {
+                $createUser->assignRole(Role::where('name', 'admin')->first());
             }
-            if ($key === 'ketua') {
-                $createUser->assignRole(Role::where('name', 'ketua')->first());
+            if ($key === 'ketua Koperasi') {
+                $createUser->assignRole(Role::where('name', 'ketua Koperasi')->first());
             }
         }
     }

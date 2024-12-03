@@ -134,6 +134,43 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     @endrole
+=======
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ count($hartaMasuk) }}</h3>
+
+
+                    <p>Total Harta Masuk</p>
+                </div>
+                <div class="icon">
+                    <i class="nav-icon fas fa-recycle"></i>
+                </div>
+                <a href="{{ route('hartaMasuk') }}" class="small-box-footer">Lihat <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ count($hartaKeluar) }}</h3>
+
+                    <p>Total Harta Keluar</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-cubes"></i>
+                </div>
+                <a href="{{ route('hartaKeluar') }}" class="small-box-footer">Lihat <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+>>>>>>> ae9cc8ff0ba86e0df4f7bcecf825989a920490ca
     <!-- /.row -->
 @endsection

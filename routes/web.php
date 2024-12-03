@@ -34,10 +34,16 @@ Auth::routes([
     'register' => false,
 ]);
 
+<<<<<<< HEAD
 
 Route::middleware(['auth', 'role:sekretaris'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+=======
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['role:sekretaris|ketua Koperasi']);
+
+Route::middleware(['auth', 'role:sekretaris'])->group(function () {
+>>>>>>> ae9cc8ff0ba86e0df4f7bcecf825989a920490ca
     Route::controller(KategoriController::class)->group(function () {
         Route::get('/kategori', 'index')->name('kategori');
         Route::get('/kategori/create', 'create')->name('kategori.create');
@@ -84,9 +90,13 @@ Route::middleware(['auth', 'role:sekretaris'])->group(function () {
     });
 });
 
+<<<<<<< HEAD
 Route::middleware(['auth', 'role:sekretaris|ketua'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+=======
+Route::middleware(['auth', 'role:sekretaris|ketua Koperasi'])->group(function () {
+>>>>>>> ae9cc8ff0ba86e0df4f7bcecf825989a920490ca
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/laporan','index')->name('laporan');
         Route::get('/laporan.index', 'index')->name('laporan.index');
