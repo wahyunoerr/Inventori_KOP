@@ -34,9 +34,10 @@ Auth::routes([
     'register' => false,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware(['role:admin|ketua']);
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:sekretaris'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::controller(KategoriController::class)->group(function () {
         Route::get('/kategori', 'index')->name('kategori');
         Route::get('/kategori/create', 'create')->name('kategori.create');
@@ -83,13 +84,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 });
 
-Route::middleware(['auth', 'role:admin|ketua'])->group(function () {
+Route::middleware(['auth', 'role:sekretaris|ketua'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::controller(LaporanController::class)->group(function () {
-        Route::get('/laporan', 'index')->name('laporan');
-        Route::get('/laporan/create', 'create')->name('laporan.create');
-        Route::post('/laporan/save', 'store')->name('laporan.store');
-        Route::post('/laporan/update/{id}', 'update')->name('laporan.update');
-        Route::get('/laporan/edit/{id}', 'edit')->name('laporan.edit');
+        Route::get('/laporan','index')->name('laporan');
+        Route::get('/laporan.index', 'index')->name('laporan.index');
         Route::get('/laporan/delete/{id}', 'destroy')->name('laporan.destroy');
     });
 

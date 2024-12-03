@@ -10,21 +10,43 @@ class LaporanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $laporan = DB::table('tbl_laporan')
-            ->join('tbl_harta', 'tbl_laporan.harta_id', '=', 'tbl_harta.id')
-            ->join('tbl_kategori', 'tbl_laporan.kategori_id', '=', 'tbl_kategori.id')
-            ->select('tbl_laporan.*', 'tbl_harta.name as namaHarta', 'tbl_kategori.name as namaKategori')
-            ->get();
-        return view('laporan.index', compact('laporan'));
+        // Mendapatkan input tanggal dari permintaan
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        // Default laporan kosong jika belum ada filter
+        $laporan = collect();
+
+        // Cek jika filter tanggal ada dan valid
+        if ($start_date && $end_date) {
+            $query = DB::table('tbl_laporan')
+                ->join('tbl_harta', 'tbl_laporan.harta_id', '=', 'tbl_harta.id')
+                ->join('tbl_kategori', 'tbl_laporan.kategori_id', '=', 'tbl_kategori.id')
+                ->leftJoin('tbl_hartaMsuk', 'tbl_harta.id', '=', 'tbl_hartaMsuk.harta_id')
+                ->leftJoin('tbl_hartaKeluar', 'tbl_harta.id', '=', 'tbl_hartaKeluar.harta_id')
+                ->select(
+                    'tbl_laporan.*',
+                    'tbl_harta.name as namaHarta',
+                    'tbl_kategori.name as namaKategori',
+                    'tbl_hartaMsuk.tanggal_masuk as tanggalMasuk',
+                    'tbl_hartaKeluar.tanggal_keluar as tanggalKeluar'
+                )
+                ->where(function ($q) use ($start_date, $end_date) {
+                    $q->whereBetween('tbl_hartaMsuk.tanggal_masuk', [$start_date, $end_date])
+                        ->orWhereBetween('tbl_hartaKeluar.tanggal_keluar', [$start_date, $end_date]);
+                });
+
+            $laporan = $query->get(); // Mengambil data yang sudah difilter
+        }
+
+        // Mengirim data ke tampilan
+        return view('laporan.index', compact('laporan', 'start_date', 'end_date'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
 
-     public function generatePDF(string $id)
+    public function generatePDF(string $id)
     {
 
 

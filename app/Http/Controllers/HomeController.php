@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +29,11 @@ class HomeController extends Controller
         $harta = DB::table('tbl_harta')->get();
         $hartaMasuk = DB::table('tbl_hartamsuk')->get();
         $hartaKeluar = DB::table('tbl_hartakeluar')->get();
-        $users = DB::table('users')->get();
-        return view('home', compact('kategori','harta','hartaMasuk','hartaKeluar','users'));
+        $users = DB::table('users')
+            ->get();
+        $laporan = DB::table('tbl_laporan')->get();
+        $nilaiMasuk = DB::table('tbl_laporan')->sum('TotalNilaiMasuk');
+        $nilaiKeluar = DB::table('tbl_laporan')->sum('TotalNilaiKeluar');
+        return view('home', compact('kategori', 'harta', 'hartaMasuk', 'hartaKeluar', 'users', 'laporan', 'nilaiMasuk', 'nilaiKeluar'));
     }
 }
