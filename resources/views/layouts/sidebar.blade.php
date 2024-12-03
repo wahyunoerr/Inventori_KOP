@@ -58,7 +58,7 @@
             </li>
         @endrole
 
-        @role('ketua Koperasi')
+        @role('ketua')
             <li class="nav-item">
                 <a href="{{ route('laporan') }}" class="nav-link {{ request()->routeIs('laporan') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-folder"></i>
